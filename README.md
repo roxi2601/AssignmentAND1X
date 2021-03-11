@@ -8,7 +8,7 @@ During corona time a lot of people are in quarantine so they cannot walk their d
 
 
 
-Critical requirements:
+Must have:
 
 
 
@@ -18,7 +18,7 @@ Critical requirements:
 
 
 
-High priority requirements:
+Should have:
 
 
 
@@ -30,9 +30,20 @@ High priority requirements:
 
 
 
-Low priority requirements:
+Could have:
 
 
 
 9.	As a user, I want to search an offer by city so that I can easily find a dog near me.
 10.	As a user, I want to add offers to “Favorites” so that I cannot lose an offer that interests me.
+
+
+
+Won't have:
+
+
+11.	As a user, I want to filter artworks by using filters (price, category) so that it is easier to find a specific artwork.
+12.	As a user, I want to have a view on another user's profile with all his artworks so that I can get more offers I like.
+13.	As a user, I want to report content which will be sent to the administrator to be verified so that it prevents vandalism.
+14.	As a user, I want to edit and delete my profile so that my data is no longer kept in the system.
+
