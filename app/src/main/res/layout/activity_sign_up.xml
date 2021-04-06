@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".signup.SignUpActivity">
+
+    <ImageView
+        android:id="@+id/logoSignUp"
+        android:layout_width="416dp"
+        android:layout_height="400dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/logo2"
+        tools:srcCompat="@drawable/logo2" />
+
+    <TextView
+        android:id="@+id/textViewFirstName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="First name:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.053"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.609" />
+
+    <EditText
+        android:id="@+id/editTextFirstName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Type your first name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.706"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.6" />
+
+    <TextView
+        android:id="@+id/textViewLastName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Last name:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.703" />
+
+    <TextView
+        android:id="@+id/textViewUsernameSignup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Username:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.8" />
+
+    <TextView
+        android:id="@+id/textViewPasswordSignup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Password:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.901" />
+
+    <EditText
+        android:id="@+id/editTextLastName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Type your last name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.706"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.696" />
+
+    <EditText
+        android:id="@+id/editTextUsernameSignup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Type your username"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.706"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/logoSignUp"
+        app:layout_constraintVertical_bias="0.809" />
+
+    <EditText
+        android:id="@+id/editTextPasswordSignup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.706"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.899" />
+
+    <Button
+        android:id="@+id/buttonJoinUs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Join us!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.811"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/logoSignUp"
+        app:layout_constraintVertical_bias="0.976" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
