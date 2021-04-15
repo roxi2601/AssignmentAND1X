@@ -5,24 +5,29 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import java.util.List;
+import com.example.assignmentand1x.account.Account;
+import com.example.assignmentand1x.account.AccountRepository;
 
 public class SignUpViewModel extends AndroidViewModel {
 
-    private final SignUpRepository repository;
+    private final AccountRepository repository;
 
     public SignUpViewModel(Application app){
         super(app);
-        repository = SignUpRepository.getInstance(app);
+        repository = AccountRepository.getInstance(app);
     }
 
-    public LiveData<SignUp> getAccount(){
-        return repository.getAccount();
+    public void createAccount (final Account account){
+        System.out.println(account);
+        repository.insert(account);
     }
-    public void createAccount (final SignUp signUp){
-        repository.createAccount(signUp);
+    public boolean ifExists(String username){
+        return repository.ifExists(username);
     }
-    public void deleteAccount(final SignUp signUp){
-        repository.deleteAccount(signUp);
+  public LiveData<Account> getAccount(String username){
+        return repository.getAccount(username);
+    }
+    public void deleteAccount(final Account account){
+        repository.deleteAccount(account);
     }
 }
