@@ -18,7 +18,6 @@ public class AccountRepository {
         DogWithCoronaDatabase database = DogWithCoronaDatabase.getInstance(application);
         accountDao = database.accountDao();
         executorService = Executors.newFixedThreadPool(2);
-
     }
 
 
