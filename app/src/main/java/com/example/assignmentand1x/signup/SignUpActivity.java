@@ -1,6 +1,7 @@
 package com.example.assignmentand1x.signup;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
@@ -40,9 +41,9 @@ public class SignUpActivity extends AppCompatActivity {
         joinUsButton = (Button)findViewById(R.id.buttonJoinUs);
         joinUsButton.setOnClickListener(v->{
 
-           /* if(signUpViewModel.ifExists(username.getText().toString()))
+           if(signUpViewModel.ifExists(username.getText().toString())){
                 Snackbar.make(v,"username already exists", Snackbar.LENGTH_SHORT).show();
-            }*/
+            }
              if(username.getText().toString().equals("") || firstName.getText().toString().equals("") || lastName.getText().toString().equals("")
             || password.getText().toString().equals("")){
                 Snackbar.make(v, "First name, last name, username and password cannot be empty", Snackbar.LENGTH_SHORT).show();

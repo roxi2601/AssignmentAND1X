@@ -14,10 +14,10 @@ public class LoginViewModel extends AndroidViewModel {
         repository = AccountRepository.getInstance(app);
     }
 
-    public boolean ifExists(String username){
+    public LiveData<Boolean> ifExists(String username){
         return repository.ifExists(username);
     }
-    public LiveData<Account> getAccount(String username){
+    public Account getAccount(String username){
         return repository.getAccount(username);
     }
 }

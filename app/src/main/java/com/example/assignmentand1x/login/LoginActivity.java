@@ -44,15 +44,16 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.editTextPassword);
         loginButton.setOnClickListener(this::onClick);
         //------------------
+
     }
 
     private void onClick(View v) {
         if (username.getText().toString().equals("") || password.getText().toString().equals("")) {
             Snackbar.make(v, "Username and password cannot be empty", Snackbar.LENGTH_SHORT).show();
-        } else if (viewModel.isExists(username.getText().toString())){
+        } else if (viewModel.ifExists(username.getText().toString())){
 
-            LiveData<Account> accountFromDB =viewModel.getAccount(username.getText().toString());
-                  if(accountFromDB.getValue().getPassword().equals(password.getText().toString()))
+            Account accountFromDB =viewModel.getAccount(username.getText().toString());
+                  if(accountFromDB.getPassword().equals(password.getText().toString()))
                   {
                       startActivity(new Intent(this, MainPageActivity.class));
                   }
@@ -65,6 +66,5 @@ public class LoginActivity extends AppCompatActivity {
         {
             Snackbar.make(v, "Username does not exist", Snackbar.LENGTH_SHORT).show();
         }
-
     }
 }

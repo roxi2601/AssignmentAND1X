@@ -21,6 +21,6 @@ public interface AccountDao {
     void deleteAccount(Account account);
 
     @Query("SELECT * FROM accounts WHERE username = :username")
-    LiveData<Account> getAccount(String username);
+    Account getAccount(String username);
 
 }

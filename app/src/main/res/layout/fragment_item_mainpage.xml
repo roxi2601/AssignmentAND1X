@@ -1,52 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+   >
 
-    <LinearLayout
-        android:id="@+id/linearLayoutItem"
-        android:layout_width="606dp"
-        android:layout_height="770dp"
-        android:layout_marginStart="4dp"
-        android:orientation="vertical"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constLayout"
+        android:layout_width="416dp"
+        android:layout_height="282dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.006">
 
-        <ImageView
-            android:id="@+id/photopet"
-            android:layout_width="602dp"
-            android:layout_height="400dp"
-            android:src="@drawable/tosia"
-            app:srcCompat="@drawable/tosia"
-            tools:srcCompat="@drawable/tosia" />
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="186dp"
+            android:layout_height="244dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.069"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/titleOffer"
-            style="Clothes"
-            android:layout_width="613dp"
-            android:layout_height="65dp"
-            android:text="Title"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+            <TextView
+                android:id="@+id/titleOfferTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="598dp"
-            android:layout_height="160dp"
-            android:text="DescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescriptionDescription"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15dp" />
 
-        <Button
-            android:id="@+id/buttonSeeMore"
-            android:layout_width="606dp"
-            android:layout_height="wrap_content"
-            android:background="#E6DB9F"
-            android:backgroundTint="#B55959"
-            android:text="See more" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/dateOfferTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Date"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15dp" />
+
+            <TextView
+                android:id="@+id/timeOfferTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Time"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15dp" />
+
+            <TextView
+                android:id="@+id/localizationOfferTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Localization"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="186dp"
+            android:layout_height="244dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.93"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.421">
+
+            <ImageView
+                android:id="@+id/photoFragment"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                app:srcCompat="@drawable/icon" />
+
+            <Button
+                android:id="@+id/buttonSeeMoreOffer"
+                android:layout_width="205dp"
+                android:layout_height="wrap_content"
+                android:text="See more" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

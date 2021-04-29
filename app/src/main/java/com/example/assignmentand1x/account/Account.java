@@ -14,7 +14,7 @@ indices = {@Index(value = "username", unique = true)})
 public class Account {
 
     @PrimaryKey(autoGenerate = true)
-    private int id;
+    private int accountId;
     private String firstName;
     private String lastName;
     private String username;
@@ -27,12 +27,12 @@ public class Account {
         this.password = password;
     }
 
-    public int getId() {
-        return id;
+    public int getAccountId() {
+        return accountId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setAccountId(int id) {
+        this.accountId = id;
     }
 
     public String getFirstName() {

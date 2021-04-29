@@ -7,7 +7,8 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_baseline_home_24"
-            android:title="@string/menu_home" />
+            android:title="@string/menu_home"
+            android:onClick=""/>
         <item
             android:id="@+id/nav_myoffers"
             android:icon="@drawable/ic_baseline_emoji_emotions_24"

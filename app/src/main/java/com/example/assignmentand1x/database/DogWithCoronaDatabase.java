@@ -9,11 +9,14 @@ import androidx.room.RoomDatabase;
 import com.example.assignmentand1x.account.Account;
 import com.example.assignmentand1x.account.AccountDao;
 import com.example.assignmentand1x.account.AccountRepository;
+import com.example.assignmentand1x.offer.Offer;
+import com.example.assignmentand1x.offer.OfferDao;
 
-@Database(entities = {Account.class}, version = 4)
+@Database(entities = {Account.class, Offer.class}, version = 5)
 public abstract class DogWithCoronaDatabase extends RoomDatabase {
     private static DogWithCoronaDatabase instance;
     public abstract AccountDao accountDao();
+    public abstract OfferDao offerDao();
 
 
     public static synchronized DogWithCoronaDatabase getInstance(Context context){

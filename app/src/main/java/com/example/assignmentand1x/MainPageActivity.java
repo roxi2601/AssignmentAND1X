@@ -3,11 +3,17 @@ package com.example.assignmentand1x;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
+import android.widget.FrameLayout;
 
+import com.example.assignmentand1x.offer.Offer;
+import com.example.assignmentand1x.offer.OfferAdapter;
+import com.example.assignmentand1x.offer.OfferViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -15,15 +21,38 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
 
 public class MainPageActivity extends AppCompatActivity {
 
+    RecyclerView mOffersList;
+    OfferAdapter mOffersAdapter;
+    OfferViewModel offerViewModel;
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
+        //
+        offerViewModel = new ViewModelProvider(this).get(OfferViewModel.class);
+        mOffersList = findViewById(R.id.rv);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        mOffersList.setLayoutManager(mLayoutManager);
+        mOffersList.setHasFixedSize(true);
+        mOffersAdapter = new OfferAdapter();
+        mOffersList.setAdapter(mOffersAdapter);
+        offerViewModel.getAllOffers().observe(this, new Observer<List<Offer>>() {
+            @Override
+            public void onChanged(List<Offer> offers) {
+                mOffersAdapter.setOffers(offers);
+            }
+        });
+
+        ///
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
