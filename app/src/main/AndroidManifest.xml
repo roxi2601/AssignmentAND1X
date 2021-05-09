@@ -1,30 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.assignmentand1x">
-<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon"
         android:label="Dog with corona"
         android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AssignmentAND1X">
-        <activity android:name=".splash.SplashActivity">
-
-        </activity>
+        android:theme="@style/Theme.AssignmentAND1X"
+        tools:node="replace">
+        <activity android:name=".views.EditOfferActivity"
+            android:parentActivityName=".views.OfferActivity"></activity>
         <activity
-            android:name=".MainPageActivity"
-            android:label="@string/title_activity_main_page"
-            android:theme="@style/Theme.AssignmentAND1X.NoActionBar"
-            >
-
-        </activity>
-        <activity android:name=".offer.OfferActivity" />
-        <activity android:name=".signup.SignUpActivity"
-            android:parentActivityName=".login.LoginActivity"
-        />
-
-        <activity android:name=".login.LoginActivity" >
+            android:name=".views.AddNewOffer"
+            android:parentActivityName=".views.MainPageActivity" />
+        <activity android:name=".views.SplashActivity" />
+        <activity android:name=".views.MainPageActivity" />
+        <activity
+            android:name=".views.OfferActivity"
+            android:parentActivityName=".views.MainPageActivity" />
+        <activity
+            android:name=".views.SignUpActivity"
+            android:parentActivityName=".views.LoginActivity"
+            android:theme="@style/Theme.AssignmentAND1X.NoActionBar" />
+        <activity android:name=".views.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

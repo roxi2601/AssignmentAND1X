@@ -6,13 +6,12 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.assignmentand1x.account.Account;
-import com.example.assignmentand1x.account.AccountDao;
-import com.example.assignmentand1x.account.AccountRepository;
-import com.example.assignmentand1x.offer.Offer;
-import com.example.assignmentand1x.offer.OfferDao;
+import com.example.assignmentand1x.DAO.AccountDao;
+import com.example.assignmentand1x.DAO.OfferDao;
+import com.example.assignmentand1x.model.Account;
+import com.example.assignmentand1x.model.Offer;
 
-@Database(entities = {Account.class, Offer.class}, version = 5)
+@Database(entities = {Account.class, Offer.class}, version =9)
 public abstract class DogWithCoronaDatabase extends RoomDatabase {
     private static DogWithCoronaDatabase instance;
     public abstract AccountDao accountDao();

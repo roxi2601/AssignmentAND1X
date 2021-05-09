@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.AddNewOffer">
+
+    <ImageView
+        android:id="@+id/editPhotoView"
+        android:layout_width="260dp"
+        android:layout_height="231dp"
+        android:src="@drawable/icon"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.069" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="373dp"
+        android:layout_height="348dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editPhotoView">
+
+        <LinearLayout
+            android:layout_width="195dp"
+            android:layout_height="339dp"
+            android:orientation="vertical">
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="13dp" />
+
+            <TextView
+                android:id="@+id/editEmailTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:text="E-mail:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="88dp"
+                android:layout_height="24dp"
+                android:text="Title:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="17dp" />
+
+            <TextView
+                android:id="@+id/editPhotoTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add photo:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="17dp" />
+
+            <TextView
+                android:id="@+id/EditTimeTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="24dp" />
+
+            <TextView
+                android:id="@+id/editDateTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="29dp" />
+
+            <TextView
+                android:id="@+id/editLocalizationTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Localization:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="22dp" />
+
+            <TextView
+                android:id="@+id/editDescriptionTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description:"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="199dp"
+            android:layout_height="346dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/editEmailEditText"
+                android:layout_width="177dp"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="E-mail"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editeditTextTitle"
+                android:layout_width="184dp"
+                android:layout_height="42dp"
+                android:ems="10"
+                android:hint="Title"
+                android:inputType="textPersonName" />
+
+            <Button
+                android:id="@+id/editPhotoButton"
+                android:layout_width="127dp"
+                android:layout_height="35dp"
+                android:text="Add photo " />
+
+            <EditText
+                android:id="@+id/editeditTextTime"
+                android:layout_width="184dp"
+                android:layout_height="42dp"
+                android:ems="10"
+                android:inputType="time" />
+
+            <EditText
+                android:id="@+id/editeditTextDate"
+                android:layout_width="184dp"
+                android:layout_height="42dp"
+                android:ems="10"
+                android:inputType="date" />
+
+            <EditText
+                android:id="@+id/editLocalizationEditText"
+                android:layout_width="175dp"
+                android:layout_height="58dp"
+                android:ems="10"
+                android:hint="Localization"
+                android:inputType="textPersonName" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editDescriptionEditText"
+                android:layout_width="178dp"
+                android:layout_height="75dp"
+                android:hint="description" />
+        </LinearLayout>
+
+        <Space
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="11dp" />
+    </LinearLayout>
+
+    <com.spark.submitbutton.SubmitButton
+        android:id="@+id/buttonEditOffer1"
+        android:layout_width="39dp"
+        android:layout_height="56dp"
+        android:text="Save"
+        android:textColor="@color/gray"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.004"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:sub_btn_background="@color/white"
+        app:sub_btn_duration="3000"
+        app:sub_btn_line_color="#8BC34A"
+        app:sub_btn_ripple_color="#4CAF50"
+        app:sub_btn_tick_color="@color/white" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

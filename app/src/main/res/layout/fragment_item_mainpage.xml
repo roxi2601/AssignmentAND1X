@@ -3,17 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-   >
+    android:layout_height="wrap_content"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constLayout"
-        android:layout_width="416dp"
-        android:layout_height="282dp"
+        android:layout_width="385dp"
+        android:layout_height="283dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.615"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.006">
+        app:layout_constraintVertical_bias="0.133">
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -78,17 +80,23 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.421">
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="42dp" />
+
             <ImageView
                 android:id="@+id/photoFragment"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
                 app:srcCompat="@drawable/icon" />
 
-            <Button
-                android:id="@+id/buttonSeeMoreOffer"
-                android:layout_width="205dp"
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="See more" />
+                android:text="          SEE MORE->"
+                android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
