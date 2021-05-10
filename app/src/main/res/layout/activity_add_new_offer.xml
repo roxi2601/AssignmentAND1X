@@ -2,14 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".views.AddNewOffer">
 
     <ImageView
         android:id="@+id/addPhotoView"
-        android:layout_width="260dp"
-        android:layout_height="231dp"
+        android:layout_width="226dp"
+        android:layout_height="182dp"
         android:src="@drawable/icon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,8 +20,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="354dp"
-        android:layout_height="339dp"
+        android:layout_width="376dp"
+        android:layout_height="394dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -65,7 +66,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="17dp" />
+                android:layout_height="64dp" />
 
             <TextView
                 android:id="@+id/TimeTextView"
@@ -111,7 +112,7 @@
 
         <LinearLayout
             android:layout_width="199dp"
-            android:layout_height="346dp"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <EditText
@@ -132,9 +133,15 @@
 
             <Button
                 android:id="@+id/addPhotoButton"
-                android:layout_width="127dp"
-                android:layout_height="35dp"
-                android:text="Add photo " />
+                android:layout_width="165dp"
+                android:layout_height="37dp"
+                android:text="from device" />
+
+            <Button
+                android:id="@+id/buttonrandom"
+                android:layout_width="164dp"
+                android:layout_height="37dp"
+                android:text="random" />
 
             <EditText
                 android:id="@+id/editTextTime"
@@ -163,6 +170,7 @@
                 android:layout_width="178dp"
                 android:layout_height="75dp"
                 android:hint="description" />
+
         </LinearLayout>
 
         <Space

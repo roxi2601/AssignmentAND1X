@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.ui.AppBarConfiguration;
 
@@ -27,6 +29,7 @@ import android.widget.Toast;
 import com.example.assignmentand1x.R;
 import com.example.assignmentand1x.model.Offer;
 import com.example.assignmentand1x.viewModel.AddNewOfferViewModel;
+import com.example.assignmentand1x.webAPI.RandomFragment;
 import com.google.android.material.snackbar.Snackbar;
 import com.spark.submitbutton.SubmitButton;
 
@@ -45,6 +48,7 @@ public class AddNewOffer extends AppCompatActivity {
     EditText localization;
     EditText description;
     AddNewOfferViewModel viewModel;
+    Button randomImage;
     private AppBarConfiguration mAppBarConfiguration;
     private static final int IMAGE_PICK_CODE = 1000;
     private static final int PERMISSION_CODE = 1001;
@@ -62,10 +66,16 @@ public class AddNewOffer extends AppCompatActivity {
         localization = findViewById(R.id.localizationEditText);
         description = findViewById(R.id.descriptionEditText);
         imageView = (ImageView) findViewById(R.id.addPhotoView);
-
-
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        randomImage = findViewById(R.id.buttonrandom);
         addButton = findViewById(R.id.buttonAddOffer);
+
+        randomImage.setOnClickListener(v->{
+            Fragment fragment = new RandomFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.constraint, fragment).commit();
+        });
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+
         addButton.setOnClickListener(new View.OnClickListener() {
 
             @Override

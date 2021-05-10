@@ -45,7 +45,6 @@ public class OfferActivity extends AppCompatActivity {
         setContentView(R.layout.activity_offer);
         viewModel = new ViewModelProvider(this).get(OfferViewModel.class);
 
-viewModel.deleteOffer(1);
         // FIND VIEWS
         title = findViewById(R.id.titleOffer);
         email = findViewById(R.id.textViewContectMe2);

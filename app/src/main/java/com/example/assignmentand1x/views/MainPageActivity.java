@@ -13,6 +13,7 @@ import android.widget.PopupWindow;
 import com.example.assignmentand1x.model.Offer;
 import com.example.assignmentand1x.R;
 import com.example.assignmentand1x.adapter.OfferAdapter;
+import com.example.assignmentand1x.viewModel.MainActivityViewModel;
 import com.example.assignmentand1x.views.UserContext;
 import com.example.assignmentand1x.viewModel.OfferViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -21,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.solver.state.State;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,13 +38,16 @@ public class MainPageActivity extends AppCompatActivity {
     OfferViewModel offerViewModel;
     BottomNavigationView navigationMenu;
     FrameLayout frameLayout;
+    MainActivityViewModel viewModel;
     private AppBarConfiguration mAppBarConfiguration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
-
+        viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        viewModel.init();
+        checkIfSignedIn();
 
         frameLayout = findViewById(R.id.frameLayout);
         //NAVIGATION
@@ -79,16 +84,27 @@ public class MainPageActivity extends AppCompatActivity {
         mOffersList.setHasFixedSize(true);
         mOffersAdapter = new OfferAdapter();
         mOffersList.setAdapter(mOffersAdapter);
-        offerViewModel.getAllOffers().observe(this, new Observer<List<Offer>>() {
-            @Override
-            public void onChanged(List<Offer> offers) {
-                mOffersAdapter.setOffers(offers);
-            }
-        });
+        offerViewModel.getAllOffers().observe(this, offers -> mOffersAdapter.setOffers(offers));
 
 
     }
+    private void checkIfSignedIn() {
+        viewModel.getCurrentUser().observe(this, user -> {
+            if (user != null) {
+                String message = "Welcome " + user.getDisplayName();
+            } else
+                startLoginActivity();
+        });
+    }
 
+    private void startLoginActivity() {
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
+    }
+
+    public void signOut(View v) {
+        viewModel.signOut();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
