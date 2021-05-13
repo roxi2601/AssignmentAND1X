@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.assignmentand1x.firebase.UserRepository;
+import com.example.assignmentand1x.repository.OfferRepository;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivityViewModel extends AndroidViewModel {
@@ -18,6 +19,7 @@ public class MainActivityViewModel extends AndroidViewModel {
         userRepository = UserRepository.getInstance(app);
 
     }
+
 
     public void init() {
         String userId = userRepository.getCurrentUser().getValue().getUid();

@@ -32,5 +32,8 @@ public interface OfferDao {
     @Query("SELECT * FROM offers ")
     LiveData<List<Offer>> getAllOffers();
 
+    @Query("SELECT * FROM offers WHERE localization LIKE :locSearch")
+    LiveData<List<Offer>> getOffers(String locSearch);
+
 
 }

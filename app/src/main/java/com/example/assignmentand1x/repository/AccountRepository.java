@@ -37,6 +37,7 @@ public class AccountRepository {
     public LiveData<Account> getAccount(String username){
         return  accountDao.getAccount(username);
     }
+
     public void insert(Account account){
         executorService.execute(()-> accountDao.insert(account));
     }
