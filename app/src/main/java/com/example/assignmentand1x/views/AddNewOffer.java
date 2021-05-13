@@ -29,7 +29,6 @@ import android.widget.Toast;
 import com.example.assignmentand1x.R;
 import com.example.assignmentand1x.model.Offer;
 import com.example.assignmentand1x.viewModel.AddNewOfferViewModel;
-import com.example.assignmentand1x.webAPI.RandomFragment;
 import com.google.android.material.snackbar.Snackbar;
 import com.spark.submitbutton.SubmitButton;
 
@@ -66,48 +65,39 @@ public class AddNewOffer extends AppCompatActivity {
         localization = findViewById(R.id.localizationEditText);
         description = findViewById(R.id.descriptionEditText);
         imageView = (ImageView) findViewById(R.id.addPhotoView);
-        randomImage = findViewById(R.id.buttonrandom);
+
         addButton = findViewById(R.id.buttonAddOffer);
 
-        randomImage.setOnClickListener(v->{
-            Fragment fragment = new RandomFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.constraint, fragment).commit();
-        });
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        addButton.setOnClickListener(new View.OnClickListener() {
+        addButton.setOnClickListener(v -> {
+            String emailText = email.getText().toString();
+            String titleText = title.getText().toString();
+            String timeText = time.getText().toString();
+            String dateText = date.getText().toString();
+            String localizationText = localization.getText().toString();
+            String descriptionText = description.getText().toString();
 
-            @Override
-            public void onClick(View v) {
-                String emailText = email.getText().toString();
-                String titleText = title.getText().toString();
-                String timeText = time.getText().toString();
-                String dateText = date.getText().toString();
-                String localizationText = localization.getText().toString();
-                String descriptionText = description.getText().toString();
+            if (emailText.equals("") || titleText.equals("") || timeText.equals("") || dateText.equals("")
+                    || localizationText.equals("") || descriptionText.equals("")) {
+                Snackbar.make(v, "Fields cannot be empty", Snackbar.LENGTH_SHORT).show();
+            } else {
+                viewModel.insert(
+                        new Offer(emailText,
+                                titleText,
+                                toByteArray(imageView.getDrawable()),
+                                timeText,
+                                dateText,
+                                localizationText,
+                                descriptionText,
+                                UserContext.getLoggedUserId())
+                );
 
-                if (emailText.equals("") || titleText.equals("") || timeText.equals("") || dateText.equals("")
-                        || localizationText.equals("") || descriptionText.equals("")) {
-                    Snackbar.make(v, "Fields cannot be empty", Snackbar.LENGTH_SHORT).show();
-                } else {
-                    viewModel.insert(
-                            new Offer(emailText,
-                                    titleText,
-                                    toByteArray(imageView.getDrawable()),
-                                    timeText,
-                                    dateText,
-                                    localizationText,
-                                    descriptionText,
-                                    UserContext.getLoggedUserId())
-                    );
-
-                    System.out.println(UserContext.getLoggedUserId());
-                    Context context = getApplicationContext();
-                    startActivity(new Intent(context, MainPageActivity.class));
-                }
-
+                System.out.println(UserContext.getLoggedUserId());
+                Context context = getApplicationContext();
+                startActivity(new Intent(context, MainPageActivity.class));
             }
+
         });
 
         imageButton = findViewById(R.id.addPhotoButton);
@@ -195,7 +185,6 @@ public class AddNewOffer extends AppCompatActivity {
             case R.id.action_logout:
                 UserContext.logout();
                 startActivity(new Intent(this, LoginActivity.class));
-                ;
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

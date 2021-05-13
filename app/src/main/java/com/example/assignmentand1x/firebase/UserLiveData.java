@@ -1,7 +1,5 @@
 package com.example.assignmentand1x.firebase;
-
 import androidx.lifecycle.LiveData;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -11,7 +9,8 @@ public class UserLiveData extends LiveData<FirebaseUser> {
     @Override
     protected void onActive() {
         super.onActive();
-        FirebaseAuth.getInstance().addAuthStateListener(listener);
+      Object object = FirebaseAuth.getInstance();
+                //.addAuthStateListener(listener);
     }
 
     @Override

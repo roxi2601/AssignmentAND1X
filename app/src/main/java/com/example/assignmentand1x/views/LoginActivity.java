@@ -40,6 +40,7 @@ public class LoginActivity extends AppCompatActivity {
     Button signUpButton;
     Button loginButton;
     LoginViewModel viewModel;
+    Button googleButton;
 
     // FIREBASE
     private final static int RC_SIGN_IN = 42;
@@ -49,11 +50,12 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+        FirebaseApp.initializeApp(this);
+        viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         checkIfSignedIn();
         setContentView(R.layout.activity_login);
-        viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
-
-
         //-----SIGN UP------
         signUpButton = findViewById(R.id.buttonSignUp);
         signUpButton.setOnClickListener(v -> {
@@ -64,6 +66,8 @@ public class LoginActivity extends AppCompatActivity {
 
         //-----LOGIN--------
         loginButton = findViewById(R.id.buttonLogin);
+        googleButton = findViewById(R.id.buttonGoogle);
+        googleButton.setOnClickListener(this::signIn);
         username = findViewById(R.id.editTextUsername);
         username.setText("ooooo");
         password = findViewById(R.id.editTextPassword);
@@ -74,6 +78,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void onClick(View v) {
+
         String usernameText = username.getText().toString();
         String passwordText = password.getText().toString();
 
@@ -113,6 +118,7 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
     public void signIn(View v) {
+
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build(),
                 new AuthUI.IdpConfig.GoogleBuilder().build());

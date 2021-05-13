@@ -137,12 +137,6 @@
                 android:layout_height="37dp"
                 android:text="from device" />
 
-            <Button
-                android:id="@+id/buttonrandom"
-                android:layout_width="164dp"
-                android:layout_height="37dp"
-                android:text="random" />
-
             <EditText
                 android:id="@+id/editTextTime"
                 android:layout_width="184dp"
