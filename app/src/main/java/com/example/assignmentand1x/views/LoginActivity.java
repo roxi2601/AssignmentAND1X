@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        checkIfSignedIn();
+
         setContentView(R.layout.activity_login);
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(this::onClick);
         //------------------
     }
-
+        checkIfSignedIn();
 
     private void onClick(View v) {
         String usernameText = username.getText().toString();
