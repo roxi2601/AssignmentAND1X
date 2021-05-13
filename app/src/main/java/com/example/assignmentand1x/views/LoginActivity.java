@@ -50,9 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-        FirebaseApp.initializeApp(this);
+        //FirebaseApp.initializeApp(this);
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         checkIfSignedIn();
         setContentView(R.layout.activity_login);
@@ -118,18 +116,19 @@ public class LoginActivity extends AppCompatActivity {
         finish();
     }
     public void signIn(View v) {
+        new AuthUI.IdpConfig.EmailBuilder().build();
+        new AuthUI.IdpConfig.GoogleBuilder().build();
+//        List<AuthUI.IdpConfig> providers = Arrays.asList(
+//                new AuthUI.IdpConfig.EmailBuilder().build(),
+//                new AuthUI.IdpConfig.GoogleBuilder().build());
 
-        List<AuthUI.IdpConfig> providers = Arrays.asList(
-                new AuthUI.IdpConfig.EmailBuilder().build(),
-                new AuthUI.IdpConfig.GoogleBuilder().build());
+//        Intent signInIntent = AuthUI.getInstance()
+//                .createSignInIntentBuilder()
+//                .setAvailableProviders(providers)
+//                .setLogo(R.drawable.logo)
+//                .build();
 
-        Intent signInIntent = AuthUI.getInstance()
-                .createSignInIntentBuilder()
-                .setAvailableProviders(providers)
-                .setLogo(R.drawable.logo)
-                .build();
-
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+    //    startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     @Override
