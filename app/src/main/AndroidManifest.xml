@@ -4,36 +4,49 @@
     package="com.example.assignmentand1x">
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
+        android:name=".app.Application"
         android:allowBackup="true"
-        android:icon="@drawable/icon"
+        android:icon="@drawable/doglogo"
         android:label="Dog with corona"
-        android:roundIcon="@drawable/icon"
+        android:roundIcon="@drawable/doglogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.AssignmentAND1X"
         tools:node="replace">
-        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
-        <activity android:name=".views.EditOfferActivity"
-            android:parentActivityName=".views.OfferActivity"></activity>
-        <activity android:name=".views.AddNewOffer"
-            android:parentActivityName=".views.MainPageActivity"></activity>
-        <activity android:name=".views.SplashActivity" />
-        <activity android:name=".views.MainPageActivity" />
+        <activity android:name=".views.WelcomeActivity" />
+        <activity android:name=".views.MyOffersActivity" />
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
         <activity
-            android:name=".views.OfferActivity"
+            android:name=".views.EditOfferActivity"
+            android:parentActivityName=".views.OfferActivity" />
+        <activity
+            android:name=".views.AddNewOffer"
             android:parentActivityName=".views.MainPageActivity" />
-        <activity
-            android:name=".views.SignUpActivity"
-            android:parentActivityName=".views.LoginActivity"
-            android:theme="@style/Theme.AssignmentAND1X.NoActionBar" />
-        <activity android:name=".views.LoginActivity">
+        <activity android:name=".views.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".views.MainPageActivity" />
+        <activity
+            android:name=".views.OfferActivity"
+            android:parentActivityName=".views.MainPageActivity" />
+        <activity
+            android:name=".views.SignUpActivity"
+            android:parentActivityName=".views.WelcomeActivity"
+             />
+        <activity android:name=".views.LoginActivity"
+            android:parentActivityName=".views.WelcomeActivity"/>
     </application>
 
 </manifest>

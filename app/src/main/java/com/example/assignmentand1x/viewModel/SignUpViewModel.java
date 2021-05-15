@@ -1,11 +1,8 @@
 package com.example.assignmentand1x.viewModel;
 
 import android.app.Application;
-
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-
 import com.example.assignmentand1x.model.Account;
 import com.example.assignmentand1x.repository.AccountRepository;
 
@@ -22,13 +19,7 @@ public class SignUpViewModel extends AndroidViewModel {
         System.out.println(account);
         repository.insert(account);
     }
-    public void updateAccount (final Account account){
-        repository.update(account);
-    }
     public LiveData<Account> getAccount(String username){
         return repository.getAccount(username);
-    }
-    public void deleteAccount(final Account account){
-        repository.deleteAccount(account);
     }
 }

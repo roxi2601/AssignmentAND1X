@@ -6,24 +6,17 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.example.assignmentand1x.R;
 import com.example.assignmentand1x.viewModel.OfferViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.snackbar.Snackbar;
-
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicReference;
 
 
 public class OfferActivity extends AppCompatActivity {
@@ -151,24 +144,24 @@ public class OfferActivity extends AppCompatActivity {
         // UPDATE - END
 
         // NAVIGATION BAR
-        navigationMenu = findViewById(R.id.bottomNavViewId);
-        navigationMenu.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_home:
-                        startActivity(new Intent(getApplicationContext(), MainPageActivity.class));
-                        return true;
-                    case R.id.action_addoffer:
-                        startActivity(new Intent(getApplicationContext(), AddNewOffer.class));
-                        return true;
-                    case R.id.action_logout:
-                        UserContext.logout();
-                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                        return true;
-                    default:
-                        return false;
-                }
+        navigationMenu = findViewById(R.id.bottomNavViewId2);
+        navigationMenu.setOnNavigationItemSelectedListener(item -> {
+            switch (item.getItemId()) {
+                case R.id.action_home:
+                    startActivity(new Intent(getApplicationContext(), MainPageActivity.class));
+                    return true;
+                case R.id.action_myOffers:
+                    startActivity(new Intent(getApplicationContext(), MyOffersActivity.class));
+                    return true;
+                case R.id.action_addoffer:
+                    startActivity(new Intent(getApplicationContext(), AddNewOffer.class));
+                    return true;
+                case R.id.action_logout:
+                    UserContext.logout();
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                    return true;
+                default:
+                    return false;
             }
         });
         // END OF THE NAVIGATION BAR

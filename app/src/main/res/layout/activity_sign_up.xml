@@ -6,12 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".views.SignUpActivity">
 
-    <include
-        android:id="@+id/include"
-        layout="@layout/app_bar_main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
     <ImageView
         android:id="@+id/logoSignUp"
         android:layout_width="400dp"
@@ -22,15 +16,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.164"
-        app:srcCompat="@drawable/logo2"
-        tools:srcCompat="@drawable/logo2" />
+        app:srcCompat="@drawable/doglogo"
+        tools:srcCompat="@drawable/doglogo" />
 
     <LinearLayout
         android:layout_width="416dp"
         android:layout_height="297dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/include"
+
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -89,7 +83,7 @@
 
             <EditText
                 android:id="@+id/editTextFirstName"
-                android:layout_width="wrap_content"
+                android:layout_width="239dp"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Type your first name"
@@ -97,7 +91,7 @@
 
             <EditText
                 android:id="@+id/editTextLastName"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Type your last name"
@@ -105,7 +99,7 @@
 
             <EditText
                 android:id="@+id/editTextUsernameSignup"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Type your username"
@@ -113,15 +107,17 @@
 
             <EditText
                 android:id="@+id/editTextPasswordSignup"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
+                android:hint="Type your password"
                 android:inputType="textPassword" />
 
             <Button
                 android:id="@+id/buttonJoinUs"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="#090000"
                 android:text="Join us!" />
         </LinearLayout>
     </LinearLayout>

@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.24"
-        app:srcCompat="@drawable/icon" />
+        app:srcCompat="@drawable/doglogo" />
 
     <TextView
         android:id="@+id/titleOffer"
@@ -177,6 +177,7 @@
         android:id="@+id/buttonContact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="#050000"
         android:text="Contact me!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

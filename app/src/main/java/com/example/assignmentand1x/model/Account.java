@@ -5,10 +5,6 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 
-/*  (tableName = "signUp_table",
-  foreignKeys = @ForeignKey(entity = Login.class,
-  parentColumns = "signup_username", childColumns = "login_username",
-  onDelete = ForeignKey.CASCADE))*/
 @Entity(tableName = "accounts",
         indices = {@Index(value = "username", unique = true)})
 public class Account {

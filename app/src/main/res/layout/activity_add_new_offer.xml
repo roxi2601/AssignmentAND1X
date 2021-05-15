@@ -8,15 +8,16 @@
     tools:context=".views.AddNewOffer">
 
     <ImageView
-        android:id="@+id/addPhotoView"
+        android:id="@+id/addPhotoView2"
         android:layout_width="226dp"
         android:layout_height="182dp"
-        android:src="@drawable/icon"
+        android:src="@drawable/doglogo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.069" />
+        app:layout_constraintVertical_bias="0.069"
+         />
 
     <LinearLayout
         android:id="@+id/linearLayout3"
@@ -27,7 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addPhotoView"
+        app:layout_constraintTop_toBottomOf="@+id/addPhotoView2"
         app:layout_constraintVertical_bias="0.166">
 
         <LinearLayout
@@ -137,6 +138,13 @@
                 android:layout_height="37dp"
                 android:text="from device" />
 
+            <Button
+                android:id="@+id/randomButton"
+                android:layout_width="170dp"
+                android:layout_height="37dp"
+                android:backgroundTint="#040000"
+                android:text="Random" />
+
             <EditText
                 android:id="@+id/editTextTime"
                 android:layout_width="184dp"
@@ -181,7 +189,7 @@
         android:id="@+id/buttonAddOffer"
         android:layout_width="39dp"
         android:layout_height="56dp"
-        android:text="Add me!"
+        android:text="Save"
         android:textColor="@color/gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -194,5 +202,18 @@
         app:sub_btn_line_color="#8BC34A"
         app:sub_btn_ripple_color="#4CAF50"
         app:sub_btn_tick_color="@color/white" />
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.796"
+        app:layout_constraintStart_toStartOf="@+id/buttonAddOffer"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.957"
+        android:visibility="invisible"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

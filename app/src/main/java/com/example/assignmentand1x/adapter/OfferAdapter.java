@@ -1,33 +1,23 @@
 package com.example.assignmentand1x.adapter;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.assignmentand1x.model.Offer;
 import com.example.assignmentand1x.R;
 import com.example.assignmentand1x.views.OfferActivity;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> {
-    private List<Offer> offers = new ArrayList<>();
+    private List<Offer> offers;
 
 
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -39,6 +29,9 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
 
 
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+
+
+
 
         viewHolder.titleTextView.setText(offers.get(position).getTitle());
         viewHolder.dateTextView.setText(offers.get(position).getDate());
@@ -52,13 +45,16 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
     }
     public void setOffers(List<Offer> offers)
     {
-        this.offers = offers;
+
+        System.out.println(offers);
+        this.offers = new ArrayList<>(offers);
+
         notifyDataSetChanged();
     }
 
 
     public int getItemCount() {
-        return offers.size();
+        return offers!=null ? offers.size() : 0;
     }
 
     class ViewHolder extends  RecyclerView.ViewHolder{
@@ -76,6 +72,7 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.ViewHolder> 
             localizationTextView = itemView.findViewById(R.id.localizationOfferTextView);
             photo = itemView.findViewById(R.id.photoFragment);
             linearLayout= itemView.findViewById(R.id.linearrr);
+
             // on item click
             itemView.setOnClickListener(v -> {
                 Intent intent= new Intent(itemView.getContext(), OfferActivity.class);

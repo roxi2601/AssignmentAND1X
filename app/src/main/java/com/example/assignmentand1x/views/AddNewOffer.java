@@ -4,8 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.ui.AppBarConfiguration;
 
@@ -16,6 +14,8 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,6 +24,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.assignmentand1x.R;
@@ -31,12 +32,16 @@ import com.example.assignmentand1x.model.Offer;
 import com.example.assignmentand1x.viewModel.AddNewOfferViewModel;
 import com.google.android.material.snackbar.Snackbar;
 import com.spark.submitbutton.SubmitButton;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Objects;
 
+import com.example.assignmentand1x.webAPI.DogApiServices;
+
 public class AddNewOffer extends AppCompatActivity {
 
+    private DogApiServices dogApiServices;
     ImageView imageView;
     SubmitButton addButton;
     Button imageButton;
@@ -48,7 +53,7 @@ public class AddNewOffer extends AppCompatActivity {
     EditText description;
     AddNewOfferViewModel viewModel;
     Button randomImage;
-    private AppBarConfiguration mAppBarConfiguration;
+    ProgressBar progressBar;
     private static final int IMAGE_PICK_CODE = 1000;
     private static final int PERMISSION_CODE = 1001;
 
@@ -58,13 +63,44 @@ public class AddNewOffer extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_offer);
         viewModel = new ViewModelProvider(this).get(AddNewOfferViewModel.class);
 
+
+        progressBar = findViewById(R.id.progressBar2);
         email = findViewById(R.id.emailEditText);
         title = findViewById(R.id.editTextTitle);
         time = findViewById(R.id.editTextTime);
         date = findViewById(R.id.editTextDate);
         localization = findViewById(R.id.localizationEditText);
         description = findViewById(R.id.descriptionEditText);
-        imageView = (ImageView) findViewById(R.id.addPhotoView);
+        imageView = findViewById(R.id.addPhotoView2);
+
+        randomImage = findViewById(R.id.randomButton);
+
+        randomImage.setOnClickListener(v->{
+            if(hasInternetConnection()){
+                dogApiServices = new DogApiServices(this);
+                dogApiServices.getRandomImage(new DogApiServices.RandomResultCallBack() {
+                    /**
+                     * @param message
+                     */
+                    @Override
+                    public void onRandomImageReceived(String message) {
+                        Picasso.get().load(message).into(imageView);
+                        String[] separated = message.split("/");
+                        title.setText(separated[4].trim());
+                    }
+
+                    /**
+                     * @param error
+                     */
+                    @Override
+                    public void onRandomImageError(String error) {
+                        Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else {
+                Toast.makeText(getApplicationContext(), getText(R.string.no_internet_connection), Toast.LENGTH_LONG).show();
+            }
+        });
 
         addButton = findViewById(R.id.buttonAddOffer);
 
@@ -95,36 +131,51 @@ public class AddNewOffer extends AppCompatActivity {
 
                 System.out.println(UserContext.getLoggedUserId());
                 Context context = getApplicationContext();
+                progressBar.setVisibility(View.VISIBLE);
                 startActivity(new Intent(context, MainPageActivity.class));
             }
 
         });
 
         imageButton = findViewById(R.id.addPhotoButton);
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) // from https://www.youtube.com/watch?v=O6dWwoULFI8
-                {
-                    Context context = getApplicationContext();
-                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
-                            == PackageManager.PERMISSION_DENIED) {
-                        //permission not granted, request it.
-                        String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
-                        //show popup for runtime permission
-                        requestPermissions(permissions, PERMISSION_CODE);
+        imageButton.setOnClickListener(v -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) // from https://www.youtube.com/watch?v=O6dWwoULFI8
+            {
+                Context context = getApplicationContext();
+                if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
+                        == PackageManager.PERMISSION_DENIED) {
+                    //permission not granted, request it.
+                    String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
+                    //show popup for runtime permission
+                    requestPermissions(permissions, PERMISSION_CODE);
 
-                    } else {
-                        //permission already granted
-                        pickPhotoFromGallery();
-                    }
                 } else {
+                    //permission already granted
                     pickPhotoFromGallery();
                 }
+            } else {
+                pickPhotoFromGallery();
             }
         });
 
 
+    }
+
+    public boolean hasInternetConnection() {
+        ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo wifiNetwork = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+        if (wifiNetwork != null && wifiNetwork.isConnected()) {
+            return true;
+        }
+        NetworkInfo mobileNetwork = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+        if (mobileNetwork != null && mobileNetwork.isConnected()) {
+            return true;
+        }
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if (activeNetwork != null && activeNetwork.isConnected()) {
+            return true;
+        }
+        return false;
     }
 
     private byte[] toByteArray(Drawable drawable) {
@@ -190,4 +241,5 @@ public class AddNewOffer extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
 }

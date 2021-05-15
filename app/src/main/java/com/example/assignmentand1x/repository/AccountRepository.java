@@ -1,15 +1,9 @@
 package com.example.assignmentand1x.repository;
-
 import android.app.Application;
-
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-
 import com.example.assignmentand1x.model.Account;
 import com.example.assignmentand1x.DAO.AccountDao;
 import com.example.assignmentand1x.database.DogWithCoronaDatabase;
-import com.google.firebase.auth.FirebaseUser;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -17,7 +11,6 @@ public class AccountRepository {
     AccountDao accountDao;
     ExecutorService executorService;
     private static AccountRepository instance;
-    private final MutableLiveData<Boolean> ifExistsLiveData = new MutableLiveData<>();
     private AccountRepository(Application application){
 
         DogWithCoronaDatabase database = DogWithCoronaDatabase.getInstance(application);

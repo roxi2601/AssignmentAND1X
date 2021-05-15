@@ -1,33 +1,28 @@
 package com.example.assignmentand1x.views;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
 import com.example.assignmentand1x.R;
 import com.example.assignmentand1x.adapter.OfferAdapter;
 import com.example.assignmentand1x.model.Offer;
-import com.example.assignmentand1x.viewModel.MainActivityViewModel;
 import com.example.assignmentand1x.viewModel.OfferViewModel;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SearchView;
+
+import androidx.annotation.RequiresApi;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
+import java.util.stream.Collectors;
 
 public class MainPageActivity extends AppCompatActivity {
 
@@ -36,7 +31,7 @@ public class MainPageActivity extends AppCompatActivity {
     OfferViewModel offerViewModel;
     BottomNavigationView navigationMenu;
     AppBarLayout frameLayout;
-    MainActivityViewModel viewModel;
+
     ImageButton searchButton;
     EditText searchedLoc;
 
@@ -45,20 +40,24 @@ public class MainPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
-        viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-        viewModel.init();
-        checkIfSignedIn();
+
 
         searchedLoc = findViewById(R.id.searchView);
         searchButton = findViewById(R.id.searchButton);
 
         frameLayout = findViewById(R.id.frameLayout);
+
+
         //NAVIGATION
-        navigationMenu = findViewById(R.id.bottomNavViewId);
+        navigationMenu = findViewById(R.id.bottomNavViewId2);
         navigationMenu.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.action_home:
                     startActivity(new Intent(getApplicationContext(), MainPageActivity.class));
+                    return true;
+                case R.id.action_myOffers:
+                    Intent intent = new Intent(getApplicationContext(),MyOffersActivity.class);
+                    startActivity(intent);
                     return true;
                 case R.id.action_addoffer:
                     startActivity(new Intent(getApplicationContext(), AddNewOffer.class));
@@ -88,38 +87,22 @@ public class MainPageActivity extends AppCompatActivity {
 
 
     }
-    private void checkIfSignedIn() {
-        viewModel.getCurrentUser().observe(this, user -> {
-            if (user != null) {
-                String message = "Welcome " + user.getDisplayName();
-            } else
-                startLoginActivity();
-        });
-    }
 
-    private void startLoginActivity() {
-        startActivity(new Intent(this, LoginActivity.class));
-        finish();
-    }
-
-    public void signOut(View v) {
-        viewModel.signOut();
-    }
-
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void  getOffers(View view){
-        if(!searchedLoc.getText().toString().isEmpty())
+        String searchedText = searchedLoc.getText().toString();
+        if(!searchedText.isEmpty())
         {
-
             offerViewModel.getAllOffers().observe(this,offers -> {
-                try {
-                    offers = offerViewModel.getOffers(searchedLoc.getText().toString());
-                    mOffersAdapter.setOffers(offers);
-                } catch (ExecutionException | InterruptedException e) {
-                    e.printStackTrace();
-                }
-
+                List<Offer> filteredOffers =  offers.stream()
+                        .filter(offer -> offer.getLocalization().contains(searchedText))
+                        .collect(Collectors.toList());
+                mOffersAdapter.setOffers(filteredOffers);
             });
-
+        }
+        else
+        {
+            offerViewModel.getAllOffers().observe(this, offers -> mOffersAdapter.setOffers(offers));
         }
     }
 
@@ -140,5 +123,6 @@ public class MainPageActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+
     }
 }

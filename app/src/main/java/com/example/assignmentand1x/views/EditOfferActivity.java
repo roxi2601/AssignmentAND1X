@@ -23,13 +23,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.example.assignmentand1x.R;
-import com.example.assignmentand1x.model.Offer;
 import com.example.assignmentand1x.viewModel.EditOfferViewModel;
 import com.google.android.material.snackbar.Snackbar;
 import com.spark.submitbutton.SubmitButton;
-
 import java.io.ByteArrayOutputStream;
 import java.util.Objects;
 
@@ -149,26 +146,23 @@ public class EditOfferActivity extends AppCompatActivity {
         });
 
         imageButton = findViewById(R.id.editPhotoButton);
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) // from https://www.youtube.com/watch?v=O6dWwoULFI8
-                {
-                    Context context = getApplicationContext();
-                    if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
-                            == PackageManager.PERMISSION_DENIED) {
-                        //permission not granted, request it.
-                        String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
-                        //show popup for runtime permission
-                        requestPermissions(permissions, PERMISSION_CODE);
+        imageButton.setOnClickListener(v -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) // from https://www.youtube.com/watch?v=O6dWwoULFI8
+            {
+                Context context = getApplicationContext();
+                if (ActivityCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE)
+                        == PackageManager.PERMISSION_DENIED) {
+                    //permission not granted, request it.
+                    String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
+                    //show popup for runtime permission
+                    requestPermissions(permissions, PERMISSION_CODE);
 
-                    } else {
-                        //permission already granted
-                        pickPhotoFromGallery();
-                    }
                 } else {
+                    //permission already granted
                     pickPhotoFromGallery();
                 }
+            } else {
+                pickPhotoFromGallery();
             }
         });
 
@@ -228,10 +222,12 @@ public class EditOfferActivity extends AppCompatActivity {
             case R.id.action_home:
                 startActivity(new Intent(this, MainPageActivity.class));
                 return true;
+            case R.id.action_myOffers:
+                startActivity(new Intent(getApplicationContext(), MyOffersActivity.class));
+                return true;
             case R.id.action_logout:
                 UserContext.logout();
                 startActivity(new Intent(this, LoginActivity.class));
-                ;
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

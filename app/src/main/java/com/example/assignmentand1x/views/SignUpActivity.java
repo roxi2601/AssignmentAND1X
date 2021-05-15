@@ -31,20 +31,18 @@ public class SignUpActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         //--------------------
-        firstName = (EditText) findViewById(R.id.editTextFirstName);
-        lastName = (EditText) findViewById(R.id.editTextLastName);
-        username = (EditText) findViewById(R.id.editTextUsernameSignup);
-        password = (EditText) findViewById(R.id.editTextPasswordSignup);
+        firstName =  findViewById(R.id.editTextFirstName);
+        lastName =  findViewById(R.id.editTextLastName);
+        username =  findViewById(R.id.editTextUsernameSignup);
+        password =  findViewById(R.id.editTextPasswordSignup);
         signUpViewModel = new ViewModelProvider(this).get(SignUpViewModel.class);
         //---------------------
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //------JOIN US--------
-        joinUsButton = (Button) findViewById(R.id.buttonJoinUs);
+        joinUsButton =  findViewById(R.id.buttonJoinUs);
         joinUsButton.setOnClickListener(v -> {
 
             String usernameText = username.getText().toString();
