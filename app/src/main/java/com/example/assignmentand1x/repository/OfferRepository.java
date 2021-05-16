@@ -48,8 +48,9 @@ public class OfferRepository {
 
         new InsertOfferAsyncTask(offerDao).execute(offer);
     }
+
     public void deleteOffer(int id) {
-        executorService.execute(()->offerDao.deleteOffer(id));
+        executorService.execute(() -> offerDao.deleteOffer(id));
 
     }
 

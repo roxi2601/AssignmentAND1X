@@ -22,6 +22,7 @@ public class DogApiServices {
         this.context = context;
     }
 
+    //inspired on codes from internet
     public void getRandomImage(final RandomResultCallBack resultCallBack) {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, "https://dog.ceo/api/breeds/image/random", null, new Response.Listener<JSONObject>() {
             @Override
@@ -46,6 +47,7 @@ public class DogApiServices {
 
     public interface RandomResultCallBack {
         void onRandomImageReceived(String message);
+
         void onRandomImageError(String error);
     }
 }

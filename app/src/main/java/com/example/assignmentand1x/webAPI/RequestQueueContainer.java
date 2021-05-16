@@ -8,9 +8,10 @@ import com.android.volley.toolbox.Volley;
 public class RequestQueueContainer {
     private static RequestQueue requestQueue;
 
-    private RequestQueueContainer() {}
+    private RequestQueueContainer() {
+    }
 
-    public static RequestQueue getInstance (Context context) {
+    public static RequestQueue getInstance(Context context) {
         if (requestQueue == null) {
             requestQueue = Volley.newRequestQueue(context);
         }

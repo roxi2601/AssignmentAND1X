@@ -11,11 +11,14 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+
 import com.example.assignmentand1x.R;
 import com.example.assignmentand1x.viewModel.OfferViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.Objects;
 
 
@@ -32,13 +35,14 @@ public class OfferActivity extends AppCompatActivity {
     Button contactButton;
     BottomNavigationView navigationMenu;
     OfferViewModel viewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_offer);
         viewModel = new ViewModelProvider(this).get(OfferViewModel.class);
 
-        // FIND VIEWS
+        //find views
         title = findViewById(R.id.titleOffer);
         email = findViewById(R.id.textViewContectMe2);
         date = findViewById(R.id.textViewDateOffer2);
@@ -49,22 +53,22 @@ public class OfferActivity extends AppCompatActivity {
         imageButton = findViewById(R.id.deleteButton);
         editButton = findViewById(R.id.editButton);
         contactButton = findViewById(R.id.buttonContact);
-        // END OF FIND VIEWS
+        //---------------
 
 
-        // EMAIL
-        contactButton.setOnClickListener(v->
+        //contact by email
+        contactButton.setOnClickListener(v ->
         {
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType(ClipDescription.MIMETYPE_TEXT_PLAIN);
             intent.putExtra(Intent.EXTRA_EMAIL, new String[]{email.getText().toString()});
-            intent.putExtra(android.content.Intent.EXTRA_SUBJECT,"Subject for email");
+            intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "Subject for email");
             intent.putExtra(android.content.Intent.EXTRA_TEXT, "Description for email");
-            startActivity(Intent.createChooser(intent,"Send Email"));
+            startActivity(Intent.createChooser(intent, "Send Email"));
         });
-        // EMAIL - END
+        //---------------
 
-        // SET FIELDS
+        //set fields
         Bundle bundleId = getIntent().getExtras();
         int idReceived = bundleId.getInt("id");
 
@@ -97,53 +101,50 @@ public class OfferActivity extends AppCompatActivity {
 
         Bundle bundle7 = getIntent().getExtras();
         byte[] byteArray = bundle7.getByteArray("photo");
-            Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-            imageView.setImageBitmap(bmp);
+        Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+        imageView.setImageBitmap(bmp);
 
-        // END OF SET FIELDS
+        //---------------
 
-        // SET BUTTON VISIBILITY
-        if(idAccountReceived != UserContext.getLoggedUserId())
-        {
+        //set button visibility
+        if (idAccountReceived != UserContext.getLoggedUserId()) {
             imageButton.setVisibility(View.INVISIBLE);
             editButton.setVisibility(View.INVISIBLE);
             contactButton.setVisibility(View.VISIBLE);
-        }
-        else
-        {
+        } else {
             imageButton.setVisibility(View.VISIBLE);
             editButton.setVisibility(View.VISIBLE);
             contactButton.setVisibility(View.INVISIBLE);
 
         }
-        // SET BUTTON VISIBILITY - END
+        //---------------
 
-        // DELETE
 
-         imageButton.setOnClickListener(v->{
+        //delete
+        imageButton.setOnClickListener(v -> {
             viewModel.deleteOffer(idReceived);
-             startActivity(new Intent(this, MainPageActivity.class));
+            startActivity(new Intent(this, MainPageActivity.class));
         });
-        // DELETE  - END
+        //---------------
 
 
-        // UPDATE
-        editButton.setOnClickListener(v->{
-            Intent intent = new Intent(getApplicationContext(),EditOfferActivity.class);
-            intent.putExtra("id",idReceived);
-            intent.putExtra("offerAccountId",idAccountReceived);
-            intent.putExtra("title",titleReceived);
-            intent.putExtra("email",emailReceived);
-            intent.putExtra("date",dateReceived);
-            intent.putExtra("time",timeReceived);
-            intent.putExtra("localization",locReceived);
-            intent.putExtra("description",descriptionReceived);
-            intent.putExtra("photo",byteArray);
+        //update
+        editButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), EditOfferActivity.class);
+            intent.putExtra("id", idReceived);
+            intent.putExtra("offerAccountId", idAccountReceived);
+            intent.putExtra("title", titleReceived);
+            intent.putExtra("email", emailReceived);
+            intent.putExtra("date", dateReceived);
+            intent.putExtra("time", timeReceived);
+            intent.putExtra("localization", locReceived);
+            intent.putExtra("description", descriptionReceived);
+            intent.putExtra("photo", byteArray);
             startActivity(intent);
         });
-        // UPDATE - END
+        //---------------
 
-        // NAVIGATION BAR
+        //navigation bar
         navigationMenu = findViewById(R.id.bottomNavViewId2);
         navigationMenu.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
@@ -164,11 +165,11 @@ public class OfferActivity extends AppCompatActivity {
                     return false;
             }
         });
-        // END OF THE NAVIGATION BAR
+        //---------------
 
         // BACK (MENU)
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        // END OF BACK (MENU)
+        //---------------
 
     }
 

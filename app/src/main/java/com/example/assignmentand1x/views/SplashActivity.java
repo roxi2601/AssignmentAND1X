@@ -8,6 +8,7 @@ import android.os.Handler;
 
 import com.example.assignmentand1x.R;
 
+//loading app
 public class SplashActivity extends AppCompatActivity {
 
     @Override
@@ -16,12 +17,9 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity(new Intent(SplashActivity.this, WelcomeActivity.class));
-                finish();
-            }
-        },2000);
+        handler.postDelayed(() -> {
+            startActivity(new Intent(SplashActivity.this, WelcomeActivity.class));
+            finish();
+        }, 2000);
     }
 }

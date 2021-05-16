@@ -9,20 +9,19 @@ class UserContext {
     private UserContext() {
     }
 
-    public static void login(Account user)
-    {
+    public static void login(Account user) {
         loggedUser = user;
     }
-    public static void logout()
-    {
+
+    public static void logout() {
         loggedUser = null;
     }
-    public static boolean isLogged()
-    {
+
+    public static boolean isLogged() {
         return loggedUser != null;
     }
-    public static int getLoggedUserId()
-    {
-        return isLogged() ? loggedUser.getAccountId(): -1;
+
+    public static int getLoggedUserId() {
+        return isLogged() ? loggedUser.getAccountId() : -1;
     }
 }

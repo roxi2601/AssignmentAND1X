@@ -32,10 +32,10 @@ public class MyOffersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_offers);
 
+
         mOffersList = findViewById(R.id.rvMyOffers);
         appBarLayout = findViewById(R.id.myOffersLayout);
         offerViewModel = new ViewModelProvider(this).get(OfferViewModel.class);
-
         mOffersList = findViewById(R.id.rvMyOffers);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         mOffersList.setLayoutManager(mLayoutManager);
@@ -44,6 +44,8 @@ public class MyOffersActivity extends AppCompatActivity {
         mOffersList.setHasFixedSize(true);
         mOffersAdapter = new OfferAdapter();
         mOffersList.setAdapter(mOffersAdapter);
+
+        //get my offers
         offerViewModel.getAllOffers().observe(this,offers -> {
 
             List<Offer> filteredOffers =  offers.stream()
@@ -52,7 +54,9 @@ public class MyOffersActivity extends AppCompatActivity {
             mOffersAdapter.setOffers(filteredOffers);
 
         });
-        //NAVIGATION
+        //------------
+
+        //navigation
         navigationMenu = findViewById(R.id.bottomNavViewId2);
         navigationMenu.getMenu().findItem(R.id.action_myOffers).setChecked(true);
         navigationMenu.setOnNavigationItemSelectedListener(item -> {
@@ -75,7 +79,7 @@ public class MyOffersActivity extends AppCompatActivity {
             }
             return true;
         });
-
+        //------------
 
     }
 }

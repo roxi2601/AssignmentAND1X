@@ -5,7 +5,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.ui.AppBarConfiguration;
 
 import android.Manifest;
 import android.content.Context;
@@ -39,6 +38,8 @@ import java.util.Objects;
 
 import com.example.assignmentand1x.webAPI.DogApiServices;
 
+import service.AddNewOfferService;
+
 public class AddNewOffer extends AppCompatActivity {
 
     private DogApiServices dogApiServices;
@@ -54,16 +55,22 @@ public class AddNewOffer extends AppCompatActivity {
     AddNewOfferViewModel viewModel;
     Button randomImage;
     ProgressBar progressBar;
+    AddNewOfferService offerService;
+
+    // for images
     private static final int IMAGE_PICK_CODE = 1000;
     private static final int PERMISSION_CODE = 1001;
 
+    //---------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_offer);
         viewModel = new ViewModelProvider(this).get(AddNewOfferViewModel.class);
+        offerService = new AddNewOfferService(viewModel);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-
+        //find views
         progressBar = findViewById(R.id.progressBar2);
         email = findViewById(R.id.emailEditText);
         title = findViewById(R.id.editTextTitle);
@@ -72,16 +79,17 @@ public class AddNewOffer extends AppCompatActivity {
         localization = findViewById(R.id.localizationEditText);
         description = findViewById(R.id.descriptionEditText);
         imageView = findViewById(R.id.addPhotoView2);
-
         randomImage = findViewById(R.id.randomButton);
+        addButton = findViewById(R.id.buttonAddOffer);
+        imageButton = findViewById(R.id.addPhotoButton);
+        //---------------
 
-        randomImage.setOnClickListener(v->{
-            if(hasInternetConnection()){
+        //webAPI
+        randomImage.setOnClickListener(v -> {
+            if (hasInternetConnection()) {
                 dogApiServices = new DogApiServices(this);
                 dogApiServices.getRandomImage(new DogApiServices.RandomResultCallBack() {
-                    /**
-                     * @param message
-                     */
+
                     @Override
                     public void onRandomImageReceived(String message) {
                         Picasso.get().load(message).into(imageView);
@@ -89,9 +97,6 @@ public class AddNewOffer extends AppCompatActivity {
                         title.setText(separated[4].trim());
                     }
 
-                    /**
-                     * @param error
-                     */
                     @Override
                     public void onRandomImageError(String error) {
                         Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT).show();
@@ -101,11 +106,9 @@ public class AddNewOffer extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), getText(R.string.no_internet_connection), Toast.LENGTH_LONG).show();
             }
         });
+        //---------------
 
-        addButton = findViewById(R.id.buttonAddOffer);
-
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-
+        //save offer
         addButton.setOnClickListener(v -> {
             String emailText = email.getText().toString();
             String titleText = title.getText().toString();
@@ -114,9 +117,11 @@ public class AddNewOffer extends AppCompatActivity {
             String localizationText = localization.getText().toString();
             String descriptionText = description.getText().toString();
 
+            String validateString = offerService.validateOfferForm(emailText, titleText, timeText, dateText,
+                    localizationText, descriptionText);
             if (emailText.equals("") || titleText.equals("") || timeText.equals("") || dateText.equals("")
                     || localizationText.equals("") || descriptionText.equals("")) {
-                Snackbar.make(v, "Fields cannot be empty", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(v, validateString, Snackbar.LENGTH_SHORT).show();
             } else {
                 viewModel.insert(
                         new Offer(emailText,
@@ -136,8 +141,9 @@ public class AddNewOffer extends AppCompatActivity {
             }
 
         });
+        //---------------
 
-        imageButton = findViewById(R.id.addPhotoButton);
+        //add image from device
         imageButton.setOnClickListener(v -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) // from https://www.youtube.com/watch?v=O6dWwoULFI8
             {
@@ -157,10 +163,11 @@ public class AddNewOffer extends AppCompatActivity {
                 pickPhotoFromGallery();
             }
         });
-
+        //---------------
 
     }
 
+    //check internet connection (for webAPI)
     public boolean hasInternetConnection() {
         ConnectivityManager cm = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo wifiNetwork = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
@@ -177,7 +184,9 @@ public class AddNewOffer extends AppCompatActivity {
         }
         return false;
     }
+    //---------------
 
+    //convert Drawable to byte[]
     private byte[] toByteArray(Drawable drawable) {
         BitmapDrawable bitmapDrawable = ((BitmapDrawable) drawable);
         Bitmap bitmap = bitmapDrawable.getBitmap();
@@ -185,7 +194,9 @@ public class AddNewOffer extends AppCompatActivity {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         return stream.toByteArray();
     }
+    //---------------
 
+    //get photo from device
     private void pickPhotoFromGallery() {
         //intent to pick image
         Intent intent = new Intent(Intent.ACTION_PICK);
@@ -218,7 +229,9 @@ public class AddNewOffer extends AppCompatActivity {
             imageView.setImageURI(data.getData());
         }
     }
+    //---------------
 
+    //menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -233,6 +246,9 @@ public class AddNewOffer extends AppCompatActivity {
             case R.id.action_home:
                 startActivity(new Intent(this, MainPageActivity.class));
                 return true;
+            case R.id.action_myOffers:
+                startActivity(new Intent(this, MyOffersActivity.class));
+                return true;
             case R.id.action_logout:
                 UserContext.logout();
                 startActivity(new Intent(this, LoginActivity.class));
@@ -241,5 +257,5 @@ public class AddNewOffer extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
+    //---------------
 }

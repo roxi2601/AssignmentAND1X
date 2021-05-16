@@ -31,7 +31,6 @@ public class MainPageActivity extends AppCompatActivity {
     OfferViewModel offerViewModel;
     BottomNavigationView navigationMenu;
     AppBarLayout frameLayout;
-
     ImageButton searchButton;
     EditText searchedLoc;
 
@@ -40,23 +39,36 @@ public class MainPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
+        offerViewModel = new ViewModelProvider(this).get(OfferViewModel.class);
+        mOffersList = findViewById(R.id.rv);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        mOffersList.setLayoutManager(mLayoutManager);
+        mLayoutManager.setStackFromEnd(true);
+        mLayoutManager.setReverseLayout(true);
+        mOffersList.setHasFixedSize(true);
+        mOffersAdapter = new OfferAdapter();
+        mOffersList.setAdapter(mOffersAdapter);
 
+        //get offers
+        offerViewModel.getAllOffers().observe(this, offers -> mOffersAdapter.setOffers(offers));
+        //---------------
 
+        //find views
         searchedLoc = findViewById(R.id.searchView);
         searchButton = findViewById(R.id.searchButton);
-
         frameLayout = findViewById(R.id.frameLayout);
-
-
-        //NAVIGATION
         navigationMenu = findViewById(R.id.bottomNavViewId2);
+        //---------------
+
+
+        //navigation
         navigationMenu.setOnNavigationItemSelectedListener(item -> {
             switch (item.getItemId()) {
                 case R.id.action_home:
                     startActivity(new Intent(getApplicationContext(), MainPageActivity.class));
                     return true;
                 case R.id.action_myOffers:
-                    Intent intent = new Intent(getApplicationContext(),MyOffersActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), MyOffersActivity.class);
                     startActivity(intent);
                     return true;
                 case R.id.action_addoffer:
@@ -70,42 +82,28 @@ public class MainPageActivity extends AppCompatActivity {
                     return false;
             }
         });
-
-
-
-        offerViewModel = new ViewModelProvider(this).get(OfferViewModel.class);
-
-        mOffersList = findViewById(R.id.rv);
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
-        mOffersList.setLayoutManager(mLayoutManager);
-        mLayoutManager.setStackFromEnd(true);
-        mLayoutManager.setReverseLayout(true);
-        mOffersList.setHasFixedSize(true);
-        mOffersAdapter = new OfferAdapter();
-        mOffersList.setAdapter(mOffersAdapter);
-        offerViewModel.getAllOffers().observe(this, offers -> mOffersAdapter.setOffers(offers));
-
+        //---------------
 
     }
 
+    //search offer by localization
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void  getOffers(View view){
+    public void getOffers(View view) {
         String searchedText = searchedLoc.getText().toString();
-        if(!searchedText.isEmpty())
-        {
-            offerViewModel.getAllOffers().observe(this,offers -> {
-                List<Offer> filteredOffers =  offers.stream()
-                        .filter(offer -> offer.getLocalization().contains(searchedText))
+        if (!searchedText.isEmpty()) {
+            offerViewModel.getAllOffers().observe(this, offers -> {
+                List<Offer> filteredOffers = offers.stream()
+                        .filter(offer -> offer.getLocalization().toLowerCase().contains(searchedText.toLowerCase()))
                         .collect(Collectors.toList());
                 mOffersAdapter.setOffers(filteredOffers);
             });
-        }
-        else
-        {
+        } else {
             offerViewModel.getAllOffers().observe(this, offers -> mOffersAdapter.setOffers(offers));
         }
     }
+    //---------------
 
+    //menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
@@ -114,15 +112,15 @@ public class MainPageActivity extends AppCompatActivity {
                 startActivity(new Intent(this, MainPageActivity.class));
                 return true;
             case R.id.action_addoffer:
-                startActivity(new Intent(this, AddNewOffer.class));;
+                startActivity(new Intent(this, AddNewOffer.class));
                 return true;
             case R.id.action_logout:
-
-                startActivity(new Intent(this, LoginActivity.class));;
+                startActivity(new Intent(this, LoginActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
 
     }
+    //---------------
 }

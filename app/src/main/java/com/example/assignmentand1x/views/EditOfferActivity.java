@@ -23,12 +23,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
 import com.example.assignmentand1x.R;
 import com.example.assignmentand1x.viewModel.EditOfferViewModel;
 import com.google.android.material.snackbar.Snackbar;
 import com.spark.submitbutton.SubmitButton;
+
 import java.io.ByteArrayOutputStream;
 import java.util.Objects;
+
+import service.EditOfferService;
 
 public class EditOfferActivity extends AppCompatActivity {
 
@@ -42,17 +46,20 @@ public class EditOfferActivity extends AppCompatActivity {
     EditText localization;
     EditText description;
     EditOfferViewModel viewModel;
+    EditOfferService offerService;
 
     private static final int IMAGE_PICK_CODE = 1000;
     private static final int PERMISSION_CODE = 1001;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_offer);
         viewModel = new ViewModelProvider(this).get(EditOfferViewModel.class);
+        offerService = new EditOfferService(viewModel);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
 
-        // FIND VIEWS
+        //find views
         email = findViewById(R.id.editEmailEditText);
         title = findViewById(R.id.editeditTextTitle);
         time = findViewById(R.id.editeditTextTime);
@@ -61,9 +68,10 @@ public class EditOfferActivity extends AppCompatActivity {
         description = findViewById(R.id.editDescriptionEditText);
         imageView = (ImageView) findViewById(R.id.editPhotoView);
         editButton = findViewById(R.id.buttonEditOffer1);
-        // FIND VIEWS - END
+        imageButton = findViewById(R.id.editPhotoButton);
+        //---------------
 
-        // SET FIELDS
+        //set fields
         Bundle bundleId = getIntent().getExtras();
         int idReceived = bundleId.getInt("id");
 
@@ -98,12 +106,9 @@ public class EditOfferActivity extends AppCompatActivity {
         byte[] byteArray = bundle7.getByteArray("photo");
         Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
         imageView.setImageBitmap(bmp);
+        //---------------
 
-        // END OF SET FIELDS
-
-
-
-
+        //edit offer
         editButton.setOnClickListener(v -> {
             String emailText = email.getText().toString();
             String titleText = title.getText().toString();
@@ -112,12 +117,13 @@ public class EditOfferActivity extends AppCompatActivity {
             String localizationText = localization.getText().toString();
             String descriptionText = description.getText().toString();
 
-
+            String validateString = offerService.validateOfferForm(emailText, titleText, timeText, dateText,
+                    localizationText, descriptionText);
             if (emailText.equals("") || titleText.equals("") || timeText.equals("") || dateText.equals("")
                     || localizationText.equals("") || descriptionText.equals("")) {
-                Snackbar.make(v, "Fields cannot be empty", Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(v, validateString, Snackbar.LENGTH_SHORT).show();
             } else {
-                viewModel.getOffer(idReceived).observe(this, offer->{
+                viewModel.getOffer(idReceived).observe(this, offer -> {
                     offer.setDate(dateText);
                     offer.setDescription(descriptionText);
                     offer.setEmail(emailText);
@@ -130,22 +136,25 @@ public class EditOfferActivity extends AppCompatActivity {
                 });
 
                 System.out.println(UserContext.getLoggedUserId());
-                Context context = getApplicationContext();
-                Intent intent = new Intent(getApplicationContext(),OfferActivity.class);
-                intent.putExtra("id",idReceived);
-                intent.putExtra("offerAccountId",idAccountReceived);
-                intent.putExtra("title",titleText);
-                intent.putExtra("email",emailText);
-                intent.putExtra("date",dateText);
-                intent.putExtra("time",timeText);
-                intent.putExtra("localization",localizationText);
-                intent.putExtra("description",descriptionText);
-                intent.putExtra("photo",toByteArray(imageView.getDrawable()));
+                Intent intent = new Intent(getApplicationContext(), OfferActivity.class);
+                //send values to the OfferActivity
+                intent.putExtra("id", idReceived);
+                intent.putExtra("offerAccountId", idAccountReceived);
+                intent.putExtra("title", titleText);
+                intent.putExtra("email", emailText);
+                intent.putExtra("date", dateText);
+                intent.putExtra("time", timeText);
+                intent.putExtra("localization", localizationText);
+                intent.putExtra("description", descriptionText);
+                intent.putExtra("photo", toByteArray(imageView.getDrawable()));
+                //---------------
                 startActivity(intent);
             }
         });
+        //---------------
 
-        imageButton = findViewById(R.id.editPhotoButton);
+
+        //choose photo from device
         imageButton.setOnClickListener(v -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) // from https://www.youtube.com/watch?v=O6dWwoULFI8
             {
@@ -165,8 +174,11 @@ public class EditOfferActivity extends AppCompatActivity {
                 pickPhotoFromGallery();
             }
         });
+        //---------------
 
     }
+
+    //convert Drawable to byte[]
     private byte[] toByteArray(Drawable drawable) {
         BitmapDrawable bitmapDrawable = ((BitmapDrawable) drawable);
         Bitmap bitmap = bitmapDrawable.getBitmap();
@@ -174,7 +186,9 @@ public class EditOfferActivity extends AppCompatActivity {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         return stream.toByteArray();
     }
+    //---------------
 
+    //choose photo from device
     private void pickPhotoFromGallery() {
         //intent to pick image
         Intent intent = new Intent(Intent.ACTION_PICK);
@@ -207,7 +221,9 @@ public class EditOfferActivity extends AppCompatActivity {
             imageView.setImageURI(data.getData());
         }
     }
+    //---------------
 
+    //menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -233,4 +249,5 @@ public class EditOfferActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+    //---------------
 }

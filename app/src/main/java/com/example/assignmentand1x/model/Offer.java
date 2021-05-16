@@ -1,4 +1,5 @@
 package com.example.assignmentand1x.model;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -14,7 +15,7 @@ public class Offer {
     private String title;
     @ColumnInfo(typeAffinity = ColumnInfo.BLOB)
     private byte[] photo;
-    private String  time;
+    private String time;
     private String date;
     private String localization;
     private String description;
@@ -30,9 +31,11 @@ public class Offer {
         this.description = description;
         this.offerAccountId = offerAccountId;
     }
-    public boolean isOwnedBy(int accountId){
+
+    public boolean isOwnedBy(int accountId) {
         return accountId == this.offerAccountId;
     }
+
     public String getEmail() {
         return email;
     }

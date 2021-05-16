@@ -13,20 +13,23 @@ public class WelcomeActivity extends AppCompatActivity {
 
     Button buttonLogin;
     Button buttonJoinUs;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         //Login button
         buttonLogin = findViewById(R.id.buttonLoginWelcome);
-        buttonLogin.setOnClickListener(v->{
+        buttonLogin.setOnClickListener(v -> {
             startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         });
+        //---------------
 
         //Join us button
         buttonJoinUs = findViewById(R.id.buttonJoinWelcome);
-        buttonJoinUs.setOnClickListener(v->{
+        buttonJoinUs.setOnClickListener(v -> {
             startActivity(new Intent(getApplicationContext(), SignUpActivity.class));
         });
+        //---------------
     }
 }

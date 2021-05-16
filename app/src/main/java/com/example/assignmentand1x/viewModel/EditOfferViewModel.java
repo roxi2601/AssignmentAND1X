@@ -10,14 +10,17 @@ import com.example.assignmentand1x.repository.OfferRepository;
 
 public class EditOfferViewModel extends AndroidViewModel {
     private final OfferRepository repository;
-    public EditOfferViewModel(Application app){
+
+    public EditOfferViewModel(Application app) {
         super(app);
         repository = OfferRepository.getInstance(app);
     }
-    public void update(Offer offer){
+
+    public void update(Offer offer) {
         repository.updateOffer(offer);
     }
-    public LiveData<Offer> getOffer(int id){
+
+    public LiveData<Offer> getOffer(int id) {
         return repository.getOffer(id);
     }
 }
