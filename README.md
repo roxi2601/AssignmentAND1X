@@ -2,7 +2,7 @@
 
 Dog with corona
 
-
+Link to the video: https://www.youtube.com/watch?v=fPtPr-_45Ps&t=74s
 
 During corona time a lot of people are in quarantine so they cannot walk their dogs. The purpose of this application is to solve this problem. One of the benefits of this app is that even children can earn the money.
 
